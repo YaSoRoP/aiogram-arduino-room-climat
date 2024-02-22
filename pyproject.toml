@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "aiogram-arduino-room-climat"
+version = "0.1.0"
+description = ""
+authors = ["Yaroslav <103318612+YaSoRoP@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = "^3.4.1"
+environs = "^10.3.0"
+pyserial = "^3.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
