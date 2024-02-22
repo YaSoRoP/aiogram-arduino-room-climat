@@ -3,6 +3,7 @@ name = "aiogram-arduino-room-climat"
 version = "0.1.0"
 description = ""
 authors = ["Yaroslav <103318612+YaSoRoP@users.noreply.github.com>"]
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
