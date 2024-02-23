@@ -58,7 +58,8 @@ def __load_config_bot(path: str | None) -> _ConfigTelegramBot:
     return _ConfigTelegramBot(
         TELEGRAM_BOT=_TelegramBot(
             API_KEY_TELEGRAM_BOT=API_KEY_TELEGRAM_BOT,
-            COM_PORT=COM_PORT
+            COM_PORT=COM_PORT,
+            BAUD=BAUD
         )
     )
 
