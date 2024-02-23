@@ -41,7 +41,7 @@ def __load_config_bot(path: str | None) -> _ConfigTelegramBot:
         raise ValueError(f'Не удалось загрузить API_KEY_TELEGRAM_BOT из {path}\nКлюч: {API_KEY_TELEGRAM_BOT}')
 
     COM_PORT = env('COM_PORT')
-    if not COM_PORT or COM_PORT.startswith('COM') and COM_PORT[3:].isdigit():
+    if not COM_PORT or COM_PORT.startswith('COM') and COM_PORT[2:].isdigit():
         raise ValueError(f'Не удалось инициализировать COM_PORT из {path}\nПорт: {COM_PORT}')
 
     return _ConfigTelegramBot(
