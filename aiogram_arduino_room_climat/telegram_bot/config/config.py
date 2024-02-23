@@ -10,6 +10,7 @@ class _TelegramBot:
     """
     API_KEY_TELEGRAM_BOT: str  # Ключ API Telegram бота
     COM_PORT: str  # COM-порт для последовательной связи
+    BAUD: int # Скорость передачи данных (бод) для последовательной связи
 
 
 @dataclass
@@ -45,14 +46,21 @@ def __load_config_bot(path: str | None) -> _ConfigTelegramBot:
     if not COM_PORT or COM_PORT.startswith('COM') and COM_PORT[2:].isdigit():
         logger.error((f'Не удалось инициализировать COM_PORT из {path}\nПорт: {COM_PORT}'))
         raise ValueError(f'Не удалось инициализировать COM_PORT из {path}\nПорт: {COM_PORT}')
-
+    
+    BAUD = env('BAUD')
+    if not BAUD:
+        BAUD: str = 9600
+    elif not BAUD.isdigit():
+        logger.error(f'Не удалось установить BOUD из {path}\nБОД: {BAUD}')
+        raise ValueError(f'Не удалось установить BOUD из {path}\nБОД: {BAUD}')
+    BAUD = int(BAUD)
+    
     return _ConfigTelegramBot(
         TELEGRAM_BOT=_TelegramBot(
             API_KEY_TELEGRAM_BOT=API_KEY_TELEGRAM_BOT,
             COM_PORT=COM_PORT
         )
     )
-
 
 config = __load_config_bot('.env')
 
