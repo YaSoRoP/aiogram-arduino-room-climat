@@ -2,7 +2,11 @@ from asyncio import run
 from aiogram import Dispatcher
 from handlers.handler import router
 from config.config import bot
+from utils.logger import logger
 
+
+# Сообщает о запуске бота
+logger.info('Запуск бота')
 
 async def main() -> None:
     """
@@ -16,6 +20,7 @@ async def main() -> None:
         None
     """
     dp = Dispatcher()
+    
     dp.include_router(router)
 
     await bot.delete_webhook(True)
