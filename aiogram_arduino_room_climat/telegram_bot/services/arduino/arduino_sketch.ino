@@ -9,6 +9,7 @@ void setup() {
 
 void send_sensor_data() {
   switch (sensor.read()) {
+    Serial.print("CEHCOP B KOMHATE: ");
     case DHT_OK:
       Serial.println((String)sensor.hum + "% - " + sensor.tem + "°C");
       break;
@@ -16,7 +17,7 @@ void send_sensor_data() {
       Serial.println("HE PABEHCTBO KC");
       break;
     case DHT_ERROR_DATA:
-      Serial.println("OTBET HE COOTBETCTB. CEHCOPAM 'DHT'");
+      Serial.println("OTBET HE СООТВЕТСТВУЕТ CEHCOPAM 'DHT'");
       break;
     case DHT_ERROR_NO_REPLY:
       Serial.println("HET OTBETA");
