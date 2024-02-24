@@ -13,6 +13,9 @@ environs = "^10.3.0"
 pyserial = "^3.5"
 
 
+[tool.poetry.scripts]
+com-get-info = 'aiogram_arduino_room_climat.telegram_bot.services.poetry_function:com_get_info'
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

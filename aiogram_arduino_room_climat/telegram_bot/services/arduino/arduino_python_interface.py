@@ -1,7 +1,7 @@
 import serial
 from time import sleep
-from utils.logger import logger
 from aiogram_arduino_room_climat.telegram_bot.config.config import config
+from utils.logger import logger
 
 
 # Получаем конфигурационные параметры из файла конфигурации
