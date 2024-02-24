@@ -42,10 +42,12 @@ def __load_config_bot(path: str | None) -> _ConfigTelegramBot:
         logger.error(f'Не удалось загрузить API_KEY_TELEGRAM_BOT из {path}\nКлюч: {API_KEY_TELEGRAM_BOT}')
         raise ValueError(f'Не удалось загрузить API_KEY_TELEGRAM_BOT из {path}\nКлюч: {API_KEY_TELEGRAM_BOT}')
 
-    COM_PORT = env('COM_PORT')
-    if not COM_PORT or COM_PORT.startswith('COM') and COM_PORT[2:].isdigit():
-        logger.error((f'Не удалось инициализировать COM_PORT из {path}\nПорт: {COM_PORT}'))
+    # Получаем COM порт
+    COM_PORT = env.str('COM_PORT')
+    if not COM_PORT or not COM_PORT.startswith('COM') or not COM_PORT[3:].isdigit():
+        logger.error(f'Не удалось инициализировать COM_PORT из {path}\nПорт: {COM_PORT}')
         raise ValueError(f'Не удалось инициализировать COM_PORT из {path}\nПорт: {COM_PORT}')
+
     
     BAUD = env('BAUD')
     if not BAUD:
@@ -64,6 +66,4 @@ def __load_config_bot(path: str | None) -> _ConfigTelegramBot:
     )
 
 config = __load_config_bot('.env')
-
-logger.info('Загрузка конфигурации бота прошла успешно!')
 bot = Bot(config.TELEGRAM_BOT.API_KEY_TELEGRAM_BOT, parse_mode='HTML')

@@ -20,11 +20,13 @@ async def main() -> None:
         None
     """
     dp = Dispatcher()
-    
     dp.include_router(router)
 
     await bot.delete_webhook(True)
+    
+    logger.info('Загрузка конфигурации бота прошла успешно!')
     await dp.start_polling(bot)
+    
 
 
 if __name__ == '__main__':
