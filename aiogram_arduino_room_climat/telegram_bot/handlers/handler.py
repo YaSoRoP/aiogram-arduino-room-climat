@@ -1,8 +1,9 @@
-from aiogram import Router
-from aiogram.types import Message
+from aiogram import Router, F
+from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart
 from lexicon.lexicon_ru import LEXICON_RU
 from keyboards.keyboard import INLINE_KEYBOARD_REQUEST_INFORMATION
+from services.arduino.arduino_python_interface import request_sensor_data
 from utils.logger import logger
 
 router = Router()
@@ -18,3 +19,12 @@ async def cmd_start(message: Message):
     await message.answer(
         text=LEXICON_RU['cmd_start'].format(message.from_user.full_name),
         reply_markup=INLINE_KEYBOARD_REQUEST_INFORMATION)
+    
+
+@router.callback_query(F.data.in_('request_information'))
+async def send_information(callback: CallbackQuery):
+    await callback.message.edit_text(
+        text=request_sensor_data(),
+        reply_markup=INLINE_KEYBOARD_REQUEST_INFORMATION
+    )
+    await callback.answer()

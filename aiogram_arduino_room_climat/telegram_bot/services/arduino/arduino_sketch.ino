@@ -7,17 +7,17 @@ void setup() {
   delay(1000);
 }
 
-void send_sensor_data() {
-  switch (sensor.read()) {
-    Serial.print("CEHCOP B KOMHATE: ");
+void loop() {
+  Serial.print("CEHCOP B KOMHATE: ");
+  switch(sensor.read()) {
     case DHT_OK:
-      Serial.println((String)sensor.hum + "% - " + sensor.tem + "°C");
+      Serial.println((String) sensor.hum + "% - " + sensor.tem + "°C");
       break;
     case DHT_ERROR_CHECKSUM:
       Serial.println("HE PABEHCTBO KC");
       break;
     case DHT_ERROR_DATA:
-      Serial.println("OTBET HE СООТВЕТСТВУЕТ CEHCOPAM 'DHT'");
+      Serial.println("OTBET HE COOTBETCTBЕТСТВУЕТ CEHCOPAM 'DHT'");
       break;
     case DHT_ERROR_NO_REPLY:
       Serial.println("HET OTBETA");
@@ -26,15 +26,5 @@ void send_sensor_data() {
       Serial.println("ERROR");
       break;
   }
-}
-
-void loop() {
-  if (Serial.available() > 0) {
-    String input = Serial.readString();
-    input.trim();
-    if (input == "request_information") {
-      send_sensor_data();
-    }
-  }
-  delay(2000);
+  delay(1500);
 }

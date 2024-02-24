@@ -1,26 +1,30 @@
 import serial
+from time import sleep
+from utils.logger import logger
 from aiogram_arduino_room_climat.telegram_bot.config.config import config
 
 
-COM_PORT: str = config.TELEGRAM_BOT.COM_PORT
-BAUD: int = config.TELEGRAM_BOT.BAUD
-
+# Получаем конфигурационные параметры из файла конфигурации
+COM_PORT = config.TELEGRAM_BOT.COM_PORT
+BAUD = config.TELEGRAM_BOT.BAUD
 
 def request_sensor_data() -> str:
-    # Открываем соединение с Arduino
-    arduino_connection = serial.Serial(
-        port=COM_PORT,
-        baudrate=BAUD,
-        timeout=1
-    )
+    """
+    Функция для запроса данных с датчика, подключенного к Arduino.
+
+    Returns:
+        str: Строка с данными датчика.
+    """
+    try:
+        # Устанавливаем соединение с Arduino
+        arduino = serial.Serial(
+            port=COM_PORT, 
+            baudrate=BAUD)
+    except serial.SerialException as e:
+        logger.error(f'Произошла ошибка при подключении к Arduino: {e}')
+        return "Ошибка при подключении к Arduino"
     
-    # Отправляем команду на Arduino
-    arduino_connection.write(b'request_information\n')
-    
-    # Считываем ответ от Arduino
-    response: str = arduino_connection.readline().decode().strip()
-    
-    # Закрываем соединение
-    arduino_connection.close()
-    
+    sleep(2)  # Ждем некоторое время перед чтением данных
+    response = arduino.readline().decode().strip()
+    arduino.close()  # Закрываем соединение с Arduino
     return response
