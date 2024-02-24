@@ -8,7 +8,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("CEHCOP B KOMHATE: ");
   switch(sensor.read()) {
     case DHT_OK:
       Serial.println((String) sensor.hum + "% - " + sensor.tem + "°C");

@@ -4,6 +4,7 @@ from aiogram.filters import CommandStart
 from lexicon.lexicon_ru import LEXICON_RU
 from keyboards.keyboard import INLINE_KEYBOARD_REQUEST_INFORMATION
 from services.arduino.arduino_python_interface import request_sensor_data
+from datetime import datetime
 from utils.logger import logger
 
 router = Router()
@@ -24,7 +25,9 @@ async def cmd_start(message: Message):
 @router.callback_query(F.data.in_('request_information'))
 async def send_information(callback: CallbackQuery):
     await callback.message.edit_text(
-        text=request_sensor_data(),
+        text=LEXICON_RU['callback_send_information'].format(
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            request_sensor_data()),
         reply_markup=INLINE_KEYBOARD_REQUEST_INFORMATION
     )
     await callback.answer()
