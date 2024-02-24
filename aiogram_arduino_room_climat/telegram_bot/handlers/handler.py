@@ -24,6 +24,9 @@ async def cmd_start(message: Message):
 
 @router.callback_query(F.data.in_('request_information'))
 async def send_information(callback: CallbackQuery):
+    logger.info(LEXICON_RU['log_info_callback_send_information'].format(
+        callback.message.from_user.full_name, 
+        callback.message.from_user.id))
     await callback.message.edit_text(
         text=LEXICON_RU['callback_send_information'].format(
             datetime.now().strftime("%Y-%m-%d %H:%M:%S"),

@@ -8,6 +8,7 @@ LEXICON_RU: dict = {
     'callback_send_information':
 """
 Дата: {}
-Данные: {}
+Данные: {},
+    'log_info_callback_send_information': "Запрос данных с модуля пользователем {} с ID {}",
 """
 }
